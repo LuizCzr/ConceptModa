@@ -1,0 +1,250 @@
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5; 
+    color: #333333; 
+}
+
+
+header {
+    background-color: #1a1a2e; 
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    color: #e94560; 
+}
+
+.autenticacao {
+    display: flex;
+    gap: 15px;
+}
+
+.autenticacao .botao {
+    text-decoration: none;
+    color: #fff;
+    background-color: #16213e; 
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.autenticacao .botao:hover {
+    background-color: #e94560; 
+}
+
+
+nav {
+    background-color: #16213e; 
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #e94560; 
+    border-radius: 5px;
+}
+
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+
+.produto {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff; 
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.produto img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.produto h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #1a1a2e; 
+}
+
+.produto p {
+    font-size: 1rem;
+    color: #333333; 
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+form input, form textarea, form button {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #1a1a2e; 
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #e94560;
+}
+
+
+footer {
+    background-color: #1a1a2e; 
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.paginacao a {
+    margin: 0 5px;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333333; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.paginacao a.ativo {
+    background-color: #e94560; 
+    color: #fff;
+    border: none;
+}
+
+.paginacao a:hover {
+    background-color: #16213e; 
+    color: #fff;
+}
+
+
+#quemsomos {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+#quemsomos .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+#quemsomos h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e94560; 
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#quemsomos p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+#quemsomos h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 40px;
+}
+
+#quemsomos ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#quemsomos ul li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+#quemsomos ul li strong {
+    color: #e94560;
+}
+
+
