@@ -2,7 +2,7 @@
 
 <?php
 
-    include_once("../config.inc.php");
+    include_once("conexao.php");
 
     $query = mysqli_query($conexao,"SELECT * FROM contatos");
 

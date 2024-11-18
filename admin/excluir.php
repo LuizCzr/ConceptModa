@@ -1,6 +1,6 @@
 <?php
 
-    include_once("../config.inc.php");
+    include_once("conexao.php");
 
     $id = $_REQUEST['id'];
 

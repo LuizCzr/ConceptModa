@@ -6,11 +6,9 @@
 include_once("conexao.php");
 
 try {
-    // Consultar os produtos
     $sql = "SELECT * FROM produtos";
     $stmt = $pdo->query($sql);
 
-    // Verificar se há produtos
     if ($stmt->rowCount() > 0) {
         while ($tabela = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo "Nome: " . htmlspecialchars($tabela['nome']) . "<br>";

@@ -5,22 +5,16 @@ include_once("conexao.php");
 $codigo = $_REQUEST['codigo'];
 
 try {
-    // Preparar a consulta SQL
     $sql = "SELECT * FROM produtos WHERE id_produto = :id_produto";
     
-    // Preparar a consulta no PDO
     $stmt = $pdo->prepare($sql);
 
-    // Vincular o parâmetro :codigo com a variável $codigo
     $stmt->bindParam(':id_produto', $codigo, PDO::PARAM_INT);
 
-    // Executar a consulta
     $stmt->execute();
 
-    // Buscar o resultado da consulta
     $dados = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    // Verificar se os dados foram encontrados
+
     if (!$dados) {
         echo "Produto não encontrado.";
         exit;
