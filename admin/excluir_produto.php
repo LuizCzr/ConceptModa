@@ -1,15 +1,28 @@
 <?php
 
-    include_once("../config.inc.php");
+include_once("conexao.php");
 
-    $codigo = $_REQUEST['codigo'];
+$codigo = $_REQUEST['codigo'];
 
-    $sql = "DELETE FROM produtos WHERE codigo = $codigo";
+try {
+    // SQL com parâmetro para segurança
+    $sql = "DELETE FROM produtos WHERE id_produto = :id_produto";
 
-    $query = mysqli_query($conexao,$sql);
+    // Preparar a consulta
+    $stmt = $pdo->prepare($sql);
 
-    if($query){
+    // Vincular o parâmetro
+    $stmt->bindParam(':id_produto', $codigo, PDO::PARAM_INT);
+
+    // Executar a consulta
+    if ($stmt->execute()) {
         echo "<h2>Produto excluído com sucesso.</h2>";
-    }else{
+    } else {
         echo "Não foi possível apagar o produto.";
     }
+
+} catch (PDOException $e) {
+    echo "Erro: " . $e->getMessage();
+}
+
+?>

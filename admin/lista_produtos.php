@@ -3,18 +3,30 @@
 
 <?php
 
-    include_once("../config.inc.php");
+include_once("conexao.php");
 
-    $query = mysqli_query($conexao,"SELECT * FROM produtos");
+try {
+    // Consultar os produtos
+    $sql = "SELECT * FROM produtos";
+    $stmt = $pdo->query($sql);
 
-    while($tabela = mysqli_fetch_array($query)){
-        echo "Nome: $tabela[nome] <br>";
-        echo "Categoria: $tabela[categoria] <br>";
-        echo "Marca: $tabela[marca] <br>";
-        echo "Preço: $tabela[preco] <br>";
-        echo "<a href=?pg=excluir_produto&codigo=$tabela[codigo]>[x] Excluir produto</a><br>";
-        echo "<a href=?pg=form_altera_produto&codigo=$tabela[codigo]>[v] Alterar produto</a><br>";
-        echo "<hr>";
+    // Verificar se há produtos
+    if ($stmt->rowCount() > 0) {
+        while ($tabela = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "Nome: " . htmlspecialchars($tabela['nome']) . "<br>";
+            echo "Preço: " . htmlspecialchars($tabela['preco']) . "<br>";
+            echo "Imagem: " . htmlspecialchars($tabela['imagem']) . "<br>";
+            echo "Descrição: " . htmlspecialchars($tabela['descricao']) . "<br>";
+            echo "Categoria: " . htmlspecialchars($tabela['categoria']) . "<br>";
+            echo "<a href=?pg=excluir_produto&codigo=" . htmlspecialchars($tabela['id_produto']) . ">[x] Excluir produto</a><br>";
+            echo "<a href=?pg=form_altera_produto&codigo=" . htmlspecialchars($tabela['id_produto']) . ">[v] Alterar produto</a><br>";
+            echo "<hr>";
+        }
+    } else {
+        echo "Nenhum produto encontrado.";
     }
+} catch (PDOException $e) {
+    echo "Erro: " . $e->getMessage();
+}
 
-    mysqli_close($conexao);
+?>
