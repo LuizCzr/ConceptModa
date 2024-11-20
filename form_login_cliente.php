@@ -1,6 +1,7 @@
 <?php  
 include_once("conexao.php");
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start();
 
@@ -30,30 +31,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Concept Moda</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<div class="login">
+    <div class="tela_login">
+        <h1>Concept Moda</h1>
+        <br>
+        <form action="" method="post">
+            <label>E-mail
+                <input value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" type="text" name="email" required>
+            </label>
+            <br>
+            <label>Senha
+                <input type="password" name="senha" required>
+            </label>
+            <br>
+            <a href="?pg=form_cadastro_cliente">Cadastre-se</a>
 
-<div class="form_login_cliente">
-    <form action="" method="post">
-        <label>E-mail 
-            <input value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" 
-                   type="text" 
-                   name="email" 
-                   required>
-        </label><br>
-        <label>Senha 
-            <input type="password" name="senha" required>
-        </label><br>
-        <a href="?pg=form_cadastro_cliente.php">Cadastre-se</a>
-        <a href="?pg=recuperar_senha.php">Esqueceu a senha?</a>
-        <div class="botao_login">
-            <input type="submit" value="Logar"><br>
-        </div>
-    </form>
-    
-    <?php
-    if (isset($erro)) {
-        foreach ($erro as $mensagem) {
-            echo "<p style='color: red;'>$mensagem</p>";
+            <a href="?pg=recuperar_senha">Esqueceu a senha?</a>
+            <br>
+            <div class="botao_login">
+                <input type="submit" value="Logar"><br>
+            </div>
+        </form>
+        
+        <?php
+        if (isset($erro)) {
+            foreach ($erro as $mensagem) {
+                echo "<p style='color: red;'>$mensagem</p>";
+            }
         }
-    }
-    ?>
+        ?>
+    </div>
 </div>

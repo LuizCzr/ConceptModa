@@ -42,18 +42,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
-<div class="form_cadastro_cliente">
-    <form action="" method="post">
-        <label>Nome<input type="text" name="nome"></label><br>
-        <label>Email<input type="email" name="email"></label><br>
-        <label>Usuário<input type="text" name="usuario"></label><br>
-        <label>Senha<input type="password" name="senha"></label><br>
-        <label>Telefone<input type="tel" name="telefone"></label><br>
-        <label>Cidade<input type="text" name="cidade"></label><br>
-        <label>Estado<input type="text" name="estado"></label><br>
-        <div class="botao_cadastro">
-            <input type="submit" value="Cadastrar"><br>
-        </div>
-    </form>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Concept Moda</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<div class="cadastro">
+    <div class="tela_cadastro">
+        <form action="" method="post">
+            <label>Nome<input type="text" name="nome"></label><br>
+            <label>Email<input type="email" name="email"></label><br>
+            <label>Usuário<input type="text" name="usuario"></label><br>
+            <label>Senha<input type="password" name="senha"></label><br>
+            <label>Telefone<input type="tel" name="telefone"></label><br>
+            <label>Cidade<input type="text" name="cidade"></label><br>
+            <label>Estado<input type="text" name="estado"></label><br>
+            <a href="?pg=form_login_cliente">Já tem conta?</a>
+            <div class="botao_cadastro">
+                <input type="submit" value="Cadastrar"><br>
+            </div>
+        </form>
+    </div>
 </div>
