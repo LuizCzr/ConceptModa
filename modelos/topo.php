@@ -13,8 +13,8 @@
             <h1>Concept Moda</h1>
         </div>
         <div class="autenticacao">
-            <a href="login.php" class="botao">Login</a>
-            <a href="cadastro.php" class="botao">Cadastro</a>
+            <a href="?pg=form_login_cliente" class="botao">Login</a>
+            <a href="?pg=form_cadastro_cliente" class="botao">Cadastro</a>
         </div>
     </div>
 </header>
