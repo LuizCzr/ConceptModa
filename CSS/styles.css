@@ -249,7 +249,7 @@ footer {
 
 .login {
     font-family: Arial, sans-serif;
-    background-color: #16213e;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -258,12 +258,12 @@ footer {
 }
 
 .tela_login {
-    background-color: rgba(26, 26, 46, 0.8);
+    background-color: rgba(26, 26, 46);
     position: absolute;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 600px;
     color: white;
 }
 
@@ -307,7 +307,7 @@ footer {
 
 .faleconosco {
     font-family: Arial, sans-serif;
-    background-color: #16213e;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -316,12 +316,12 @@ footer {
 }
 
 .tela_faleconosco {
-    background-color: rgba(26, 26, 46, 0.8);
+    background-color: rgba(26, 26, 46);
     position: absolute;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 500px;
     color: white;
 }
 
@@ -365,7 +365,7 @@ footer {
 
 .cadastro {
     font-family: Arial, sans-serif;
-    background-color: #16213e;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -374,12 +374,12 @@ footer {
 }
 
 .tela_cadastro {
-    background-color: rgba(26, 26, 46, 0.8);
+    background-color: rgba(26, 26, 46);
     position: absolute;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 500px;
     color: white;
 }
 

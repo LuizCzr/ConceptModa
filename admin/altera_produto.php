@@ -1,36 +1,43 @@
 <?php
 
-include_once("conexao.php");
+include('conexao.php');
 
-$codigo = $_REQUEST['id_produto'];
-$nome = $_REQUEST['nome'];
-$preco = $_REQUEST['preco'];
-$imagem = $_REQUEST['imagem'];
-$descricao = $_REQUEST['descricao'];
-$categoria = $_REQUEST['categoria'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_produto = $_POST['id_produto'];
+    $nome = $_POST['nome'];
+    $preco = $_POST['preco'];
+    $imagem = $_POST['imagem'];
+    $descricao = $_POST['descricao'];
+    $quantidade_estoque = $_POST['quantidade_estoque'];
+    $categorias = $_POST['categorias']; 
 
-try {
-    $sql = "UPDATE produtos SET
-            nome = :nome, preco = :preco, imagem = :imagem, descricao = :descricao, categoria = :categoria
-            WHERE id_produto = :id_produto";
-
+    $sql = 'UPDATE produtos SET nome = :nome, descricao = :descricao, preco = :preco, 
+            quantidade_estoque = :quantidade_estoque, imagem_url = :imagem 
+            WHERE id_produto = :id_produto';
     $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':id_produto' => $id_produto,
+        ':nome' => $nome,
+        ':descricao' => $descricao,
+        ':preco' => $preco,
+        ':quantidade_estoque' => $quantidade_estoque,
+        ':imagem' => $imagem
+    ]);
 
-    $stmt->bindParam(':nome', $nome);
-    $stmt->bindParam(':preco', $preco);
-    $stmt->bindParam(':imagem', $imagem);
-    $stmt->bindParam(':descricao', $descricao);
-    $stmt->bindParam(':categoria', $categoria);
-    $stmt->bindParam(':id_produto', $codigo, PDO::PARAM_INT);
+    $sql_delete = 'DELETE FROM produto_categoria WHERE id_produto = :id_produto';
+    $stmt_delete = $pdo->prepare($sql_delete);
+    $stmt_delete->execute([':id_produto' => $id_produto]);
 
-    if ($stmt->execute()) {
-        echo "<h2>Produto alterado com sucesso.</h2>";
-    } else {
-        echo "<h2>Não foi possível alterar o produto.</h2>";
+    foreach ($categorias as $id_categoria) {
+        $sql_categoria = 'INSERT INTO produto_categoria (id_produto, id_categoria) 
+                          VALUES (:id_produto, :id_categoria)';
+        $stmt_categoria = $pdo->prepare($sql_categoria);
+        $stmt_categoria->execute([
+            ':id_produto' => $id_produto,
+            ':id_categoria' => $id_categoria
+        ]);
     }
 
-} catch (PDOException $e) {
-    echo "Erro: " . $e->getMessage();
+    echo "Produto alterado com sucesso!";
 }
-
 ?>

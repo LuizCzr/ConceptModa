@@ -1,32 +1,37 @@
 <?php
 
-include_once("conexao.php");
+include('conexao.php');
 
-$nome = $_REQUEST['nome'];
-$preco = $_REQUEST['preco'];
-$imagem = $_REQUEST['imagem'];
-$descricao = $_REQUEST['descricao'];
-$categoria = $_REQUEST['categoria'];
-
-$sql = "INSERT INTO produtos (nome, preco, imagem, descricao, categoria) 
-        VALUES (:nome, :preco, :imagem, :descricao, :categoria)";
-
-try {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $preco = $_POST['preco'];
+    $imagem = $_POST['imagem'];
+    $descricao = $_POST['descricao'];
+    $quantidade_estoque = $_POST['quantidade_estoque'];
+    $categorias = $_POST['categorias'];
+    $sql = 'INSERT INTO produtos (nome, descricao, preco, quantidade_estoque, imagem_url) 
+            VALUES (:nome, :descricao, :preco, :quantidade_estoque, :imagem)';
     $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':nome' => $nome,
+        ':descricao' => $descricao,
+        ':preco' => $preco,
+        ':quantidade_estoque' => $quantidade_estoque,
+        ':imagem' => $imagem
+    ]);
+    
+    $id_produto = $pdo->lastInsertId();
 
-    $stmt->bindParam(':nome', $nome);
-    $stmt->bindParam(':preco', $preco);
-    $stmt->bindParam(':imagem', $imagem);
-    $stmt->bindParam(':descricao', $descricao);
-    $stmt->bindParam(':categoria', $categoria);
-
-    if ($stmt->execute()) {
-        echo "<h2> Produto Cadastrado com sucesso.</h2>";
-    } else {
-        echo "<h2> Não foi possível cadastrar o produto.</h2>";
+    foreach ($categorias as $id_categoria) {
+        $sql_categoria = 'INSERT INTO produto_categoria (id_produto, id_categoria) 
+                          VALUES (:id_produto, :id_categoria)';
+        $stmt_categoria = $pdo->prepare($sql_categoria);
+        $stmt_categoria->execute([
+            ':id_produto' => $id_produto,
+            ':id_categoria' => $id_categoria
+        ]);
     }
 
-} catch (PDOException $e) {
-    echo "Erro: " . $e->getMessage();
+    echo "Produto cadastrado com sucesso!";
 }
 ?>

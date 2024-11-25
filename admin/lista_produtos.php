@@ -6,16 +6,22 @@
 include_once("conexao.php");
 
 try {
-    $sql = "SELECT * FROM produtos";
+    $sql = "SELECT p.id_produto, p.nome, p.preco, p.imagem_url, p.descricao, 
+            GROUP_CONCAT(c.nome ORDER BY c.nome ASC) AS categorias
+            FROM produtos p
+            LEFT JOIN produto_categoria pc ON p.id_produto = pc.id_produto
+            LEFT JOIN categorias c ON pc.id_categoria = c.id_categoria
+            GROUP BY p.id_produto";
+    
     $stmt = $pdo->query($sql);
 
     if ($stmt->rowCount() > 0) {
         while ($tabela = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo "Nome: " . htmlspecialchars($tabela['nome']) . "<br>";
             echo "Preço: " . htmlspecialchars($tabela['preco']) . "<br>";
-            echo "Imagem: " . htmlspecialchars($tabela['imagem']) . "<br>";
+            echo "Imagem: " . htmlspecialchars($tabela['imagem_url']) . "<br>";
             echo "Descrição: " . htmlspecialchars($tabela['descricao']) . "<br>";
-            echo "Categoria: " . htmlspecialchars($tabela['categoria']) . "<br>";
+            echo "Categoria(s): " . htmlspecialchars($tabela['categorias']) . "<br>";
             echo "<a href=?pg=excluir_produto&codigo=" . htmlspecialchars($tabela['id_produto']) . ">[x] Excluir produto</a><br>";
             echo "<a href=?pg=form_altera_produto&codigo=" . htmlspecialchars($tabela['id_produto']) . ">[v] Alterar produto</a><br>";
             echo "<hr>";

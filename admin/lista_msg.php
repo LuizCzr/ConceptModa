@@ -2,17 +2,22 @@
 
 <?php
 
-    include_once("conexao.php");
+include_once("conexao.php");
 
-    $query = mysqli_query($conexao,"SELECT * FROM contatos");
+try {
+    $sql = "SELECT * FROM mensagens_contato";
+    $stmt = $pdo->query($sql);
 
-    while($tabela = mysqli_fetch_array($query)){
-        echo "Nome: $tabela[nome] <br>";
-        echo "E-mail: $tabela[email] <br>";
-        echo "Assunto: $tabela[assunto] <br>";
-        echo "Mensagem: $tabela[mensagem] <br>";
-        echo "<a href=?pg=excluir&id=$tabela[id]>[x] Excluir mensagem</a><br>";
+    while ($tabela = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "Nome: " . htmlspecialchars($tabela['nome']) . "<br>";
+        echo "E-mail: " . htmlspecialchars($tabela['email']) . "<br>";
+        echo "Assunto: " . htmlspecialchars($tabela['assunto']) . "<br>";
+        echo "Mensagem: " . nl2br(htmlspecialchars($tabela['mensagem'])) . "<br>";
+        echo "<a href=?pg=excluir&id=" . $tabela['id_mensagem'] . ">[x] Excluir mensagem</a><br>";
         echo "<hr>";
     }
+} catch (PDOException $e) {
+    echo "Erro: " . $e->getMessage();
+}
 
-    mysqli_close($conexao);
+?>

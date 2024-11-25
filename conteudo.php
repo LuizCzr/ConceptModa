@@ -21,7 +21,7 @@ require_once 'conexao.php';
             foreach ($produtosPagina as $produto) {
                 echo "
                     <div class='produto'>
-                        <img src='{$produto['imagem']}' alt='{$produto['nome']}'>
+                        <img src='{$produto['imagem_url']}' alt='{$produto['nome']}'>
                         <h3>{$produto['nome']}</h3>
                         <p>R$ " . number_format($produto['preco'], 2, ',', '.') . "</p>
                     </div>

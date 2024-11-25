@@ -1,7 +1,6 @@
 <?php  
 include_once("conexao.php");
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start();
 
@@ -9,15 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = $_POST['senha'];
 
     try {
-        $stmt = $pdo->prepare("SELECT senha, id FROM clientes WHERE email = :email");
+        $stmt = $pdo->prepare("SELECT senha, id_usuario, tipo_usuario FROM usuarios WHERE email = :email");
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         $dado = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($dado) {
             if (password_verify($senha, $dado['senha'])) { 
-                $_SESSION['usuario'] = $dado['id'];
+                $_SESSION['usuario'] = $dado['id_usuario'];
                 $_SESSION['email'] = $email;
+                $_SESSION['tipo_usuario'] = $dado['tipo_usuario']; // Cliente ou administrador
                 header("Location: index.php");
                 exit;
             } else {
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login - Concept Moda</title>
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
+<body>
 <div class="login">
     <div class="tela_login">
         <h1>Concept Moda</h1>
@@ -70,3 +71,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ?>
     </div>
 </div>
+</body>
+</html>
