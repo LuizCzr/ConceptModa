@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,8 +16,22 @@
             <h1>Concept Moda</h1>
         </div>
         <div class="autenticacao">
-            <a href="?pg=form_login_usuario" class="botao">Login</a>
-            <a href="?pg=form_cadastro_usuarios" class="botao">Cadastro</a>
+            <?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])): ?>
+                <span class="usuario-nome">Olá, 
+                    <?php 
+                        if (isset($_SESSION['nome']) && !empty($_SESSION['nome'])) {
+                            $nome = explode(' ', $_SESSION['nome'])[0];
+                            echo htmlspecialchars($nome); 
+                        } else {
+                            echo "Usuário";
+                        }
+                    ?>
+                </span>
+                <a href="logout.php" class="botao">Sair</a>
+            <?php else: ?>
+                <a href="?pg=form_login_usuario" class="botao">Login</a>
+                <a href="?pg=form_cadastro_usuarios" class="botao">Cadastro</a>
+            <?php endif; ?>
         </div>
     </div>
 </header>

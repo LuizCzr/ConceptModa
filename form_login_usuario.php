@@ -4,7 +4,7 @@ include_once("conexao.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start();
 
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
     $senha = $_POST['senha'];
 
     try {
@@ -17,8 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($senha, $dado['senha'])) { 
                 $_SESSION['usuario'] = $dado['id_usuario'];
                 $_SESSION['email'] = $email;
-                $_SESSION['tipo_usuario'] = $dado['tipo_usuario']; // Cliente ou administrador
-                header("Location: index.php");
+                $_SESSION['tipo_usuario'] = $dado['tipo_usuario'];
+
+                $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
+                header("Location: $redirect");
                 exit;
             } else {
                 $erro[] = "Senha incorreta.";
@@ -53,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="password" name="senha" required>
             </label>
             <br>
-            <a href="?pg=form_cadastro_cliente">Cadastre-se</a>
+            <a href="?pg=form_cadastro_usuario">Cadastre-se</a>
 
             <a href="?pg=recuperar_senha">Esqueceu a senha?</a>
             <br>

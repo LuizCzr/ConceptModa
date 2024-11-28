@@ -2,27 +2,34 @@
 include_once("conexao.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $assunto = $_POST['assunto'];
-    $mensagem = $_POST['mensagem'];
+    $nome = trim($_POST['nome']);
+    $email = trim($_POST['email']);
+    $assunto = trim($_POST['assunto']);
+    $mensagem = trim($_POST['mensagem']);
 
-    try {
-        $sql = "INSERT INTO mensagens_contato (nome, email, assunto, mensagem) VALUES (:nome, :email, :assunto, :mensagem)";
-        $stmt = $pdo->prepare($sql);
+    if (empty($nome) || empty($email) || empty($mensagem)) {
+        $erro = "Todos os campos são obrigatórios.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erro = "O e-mail informado não é válido.";
+    } else {
+        try {
+            $sql = "INSERT INTO mensagens_contato (nome, email, assunto, mensagem) 
+                    VALUES (:nome, :email, :assunto, :mensagem)";
+            $stmt = $pdo->prepare($sql);
 
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':assunto', $assunto);
-        $stmt->bindParam(':mensagem', $mensagem);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':assunto', $assunto);
+            $stmt->bindParam(':mensagem', $mensagem);
 
-        if ($stmt->execute()) {
-            $sucesso = "Mensagem enviada com sucesso.";
-        } else {
-            $erro = "Não foi possível enviar a mensagem.";
+            if ($stmt->execute()) {
+                $sucesso = "Mensagem enviada com sucesso. Obrigado pelo seu contato!";
+            } else {
+                $erro = "Não foi possível enviar a mensagem. Tente novamente.";
+            }
+        } catch (PDOException $e) {
+            $erro = "Erro: " . $e->getMessage();
         }
-    } catch (PDOException $e) {
-        $erro = "Erro: " . $e->getMessage();
     }
 }
 ?>
@@ -41,16 +48,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h3>Entre em contato conosco!</h3><br>
 
             <?php if (isset($sucesso)): ?>
-                <h2><?php echo $sucesso; ?></h2>
+                <h2 style="color: green;"><?php echo htmlspecialchars($sucesso); ?></h2>
             <?php elseif (isset($erro)): ?>
-                <h2><?php echo $erro; ?></h2>
+                <h2 style="color: red;"><?php echo htmlspecialchars($erro); ?></h2>
             <?php endif; ?>
 
             <form action="" method="post">
-                Nome: <input type="text" name="nome" required><br>
-                E-mail: <input type="email" name="email" required><br>
-                Assunto: <input type="text" name="assunto"><br>
-                Mensagem: <textarea name="mensagem" required></textarea><br>
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" value="<?php echo isset($nome) ? htmlspecialchars($nome) : ''; ?>" required><br>
+
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>" required><br>
+
+                <label for="assunto">Assunto:</label>
+                <input type="text" name="assunto" id="assunto" value="<?php echo isset($assunto) ? htmlspecialchars($assunto) : ''; ?>"><br>
+
+                <label for="mensagem">Mensagem:</label>
+                <textarea name="mensagem" id="mensagem" required><?php echo isset($mensagem) ? htmlspecialchars($mensagem) : ''; ?></textarea><br>
+
                 <div class="botao_faleconosco">
                     <input type="submit" value="Enviar">
                 </div>
