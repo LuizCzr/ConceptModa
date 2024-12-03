@@ -13,7 +13,7 @@ try {
         $id_produto = $_POST['id_produto'];
         $nome = $_POST['nome'];
         $preco = $_POST['preco'];
-        $imagem = $_POST['imagem'];
+        $imagem = $_POST['imagem_url'];
         $descricao = $_POST['descricao'];
         $quantidade_estoque = $_POST['quantidade_estoque'];
         $categorias = $_POST['categorias'] ?? [];

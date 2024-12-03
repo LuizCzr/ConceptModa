@@ -6,29 +6,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $nome = trim($_POST['nome']);
     $email = trim($_POST['email']);
-    $usuario = trim($_POST['usuario']);
     $senha = $_POST['senha'];
     $telefone = trim($_POST['telefone']);
     $endereco = trim($_POST['endereco']);
 
-    if (empty($nome) || empty($email) || empty($usuario) || empty($senha) || empty($telefone) || empty($endereco)) {
+    if (empty($nome) || empty($email) || empty($senha) || empty($telefone) || empty($endereco)) {
         $erro = "Todos os campos são obrigatórios.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erro = "E-mail inválido.";
-    } elseif (!preg_match('/^\(\d{2}\)\d{5}-\d{4}$/', $telefone)) {
+    } elseif (!preg_match('/^\(\d{2}\)\s?\d{5}-\d{4}$/', $telefone)) {
         $erro = "Telefone inválido. O formato correto é (xx)xxxxx-xxxx.";
-    } else {
+    }
+     else {
         $senhaCriptografada = password_hash($senha, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO usuarios (nome, email, usuario, senha, telefone, endereco) 
-                VALUES (:nome, :email, :usuario, :senha, :telefone, :endereco)";
+        $sql = "INSERT INTO usuarios (nome, email, senha, telefone, endereco) 
+                VALUES (:nome, :email, :senha, :telefone, :endereco)";
 
         try {
             $stmt = $pdo->prepare($sql);
 
             $stmt->bindParam(':nome', $nome);
             $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':usuario', $usuario);
             $stmt->bindParam(':senha', $senhaCriptografada);
             $stmt->bindParam(':telefone', $telefone);
             $stmt->bindParam(':endereco', $endereco);
@@ -68,10 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="email" placeholder="Seu melhor e-mail." name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
             </label><br>
 
-            <label>Usuário
-                <input type="text" placeholder="Usuário" name="usuario" value="<?php echo isset($usuario) ? htmlspecialchars($usuario) : ''; ?>">
-            </label><br>
-
             <label>Senha
                 <input type="password" placeholder="Senha segura" name="senha">
             </label><br>
@@ -99,4 +94,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const telefoneInput = document.querySelector('input[name="telefone"]');
+
+    telefoneInput.addEventListener("input", function () {
+        let telefone = telefoneInput.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+        telefone = telefone.substring(0, 11); // Limita a 11 dígitos
+
+        if (telefone.length > 6) {
+            telefone = `(${telefone.substring(0, 2)}) ${telefone.substring(2, 7)}-${telefone.substring(7)}`;
+        } else if (telefone.length > 2) {
+            telefone = `(${telefone.substring(0, 2)}) ${telefone.substring(2)}`;
+        } else if (telefone.length > 0) {
+            telefone = `(${telefone}`;
+        }
+
+        telefoneInput.value = telefone; // Atualiza o valor do campo
+    });
+});
+</script>
+
 </html>

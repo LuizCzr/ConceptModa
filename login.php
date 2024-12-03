@@ -15,12 +15,13 @@ if (isset($_POST['login'])) {
         if ($stmt->rowCount() > 0) {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             if (password_verify($senha, $usuario['senha'])) {
-                session_regenerate_id(true);
-                
+                session_regenerate_id(true); // Gera uma nova sessão para segurança
+
+                // Armazena os dados do usuário na sessão
                 $_SESSION['usuario'] = $usuario['id_usuario'];
                 $_SESSION['email'] = $usuario['email'];
                 $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-                $_SESSION['nome'] = $usuario['nome']; 
+                $_SESSION['nome'] = $usuario['nome']; // Nome completo do usuário
 
                 $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
 
@@ -46,4 +47,3 @@ if (isset($_POST['login'])) {
 if (isset($erro)) {
     echo "<p style='color:red;'>$erro</p>";
 }
-?>

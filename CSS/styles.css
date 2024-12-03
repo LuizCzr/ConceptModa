@@ -29,7 +29,7 @@ header {
 
 .logo h1 {
     font-size: 1.5rem;
-    color: #e94560; 
+    color: #002fff; 
 }
 
 .autenticacao {
@@ -499,3 +499,117 @@ footer {
     color: #0056b3;
 }
 
+#pesquisa {
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#pesquisa form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#pesquisa input[type="text"] {
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#pesquisa input[type="text"]:focus {
+    border-color: #888;
+}
+
+#pesquisa button {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#pesquisa button:hover {
+    background-color: #0056b3;
+}
+
+/* Ajustes para a seção de produtos */
+#produtos {
+    margin-top: 20px;
+}
+
+/* Seção do produto */
+#produto {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px auto;
+    max-width: 900px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Estilo do container do produto */
+.produto-detalhes {
+    display: flex;
+    gap: 20px;
+}
+
+/* Imagem do produto */
+.produto-imagem img {
+    max-width: 300px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Informações do produto */
+.produto-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.produto-info h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+}
+
+.produto-info p {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
+
+.produto-info p strong {
+    color: #000;
+}
+
+.produto-info .botao-comprar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.produto-info .botao-comprar:hover {
+    background-color: #0056b3;
+}

@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Inicia a sessão apenas se não estiver ativa
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -20,10 +22,10 @@
                 <span class="usuario-nome">Olá, 
                     <?php 
                         if (isset($_SESSION['nome']) && !empty($_SESSION['nome'])) {
-                            $nome = explode(' ', $_SESSION['nome'])[0];
+                            $nome = explode(' ', $_SESSION['nome'])[0]; // Exibe o primeiro nome
                             echo htmlspecialchars($nome); 
                         } else {
-                            echo "Usuário";
+                            echo "Usuário"; // Exibe "Usuário" se o nome não estiver na sessão
                         }
                     ?>
                 </span>
